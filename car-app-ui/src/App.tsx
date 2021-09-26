@@ -1,14 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { Menu } from "antd"
 import './App.css';
 import Home from './pages/Home'
+import Cars from './pages/Cars'
 
 function App() {
 
   return (
-    <div>
-      <Home />
-    </div>
+    <Router>
+      <Menu mode="horizontal" theme="dark">
+        <Menu.Item>
+          CarZNow
+        </Menu.Item>
+      </Menu>
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/cars/:companyId" exact>
+          <Cars />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

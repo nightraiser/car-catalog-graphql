@@ -1,5 +1,5 @@
 const express = require('express');
-import {companies} from './data'
+import {cars, companies} from './data'
 import Server from './apolloServer';
 
 const app = express();
@@ -12,9 +12,6 @@ app.use(function(req, res, next) {
   });
 const port = 4200;
 // PRODUCT ROUTE
-app.get('/cars', async (req, res) => {
-    res.json(companies.map((r, i) => ({...r, id: i+1})));
-});
 
 
 Server.applyMiddleware({app});

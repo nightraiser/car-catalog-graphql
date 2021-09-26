@@ -16,10 +16,11 @@ const typeDefs = gql`
         Weight_in_lbs: Int,
         Acceleration: Int,
         Year: String,
-        Origin: String
+        Origin: String,
+        company: Int
     }
     type Query {
-        cars(title: String): [Car]
+        cars(title: String, company: Int): [Car]
         companies: [Company]
     }
 `;
@@ -28,11 +29,15 @@ const resolvers = {
     Query: {
         companies: async () => companies,
         cars: async (parent, args, context ) => {
-            const {title} = args
+            const {title, company} = args
+            let response = [...cars]
             if(title && title.length > 0) {
-                return cars.filter(r =>  r.Name.toLowerCase().indexOf(title.toLowerCase() != -1))
+                response = response.filter(r =>  r.Name.toLowerCase().indexOf(title.toLowerCase() != -1))
             }
-            return cars
+            if(company) {
+                response = response.filter(r => r.company === company)
+            }
+            return response
         }
     }
     
